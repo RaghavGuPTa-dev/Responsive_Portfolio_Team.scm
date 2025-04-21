@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-b from-slate-900 to-slate-800 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-3xl w-full text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4">
+        Portfolio <span class="text-blue-400">Generator</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-300 mb-10">
+        Create a stunning developer portfolio in minutes. Just fill in your details below and watch your professional portfolio come to life.
+      </p>
+
+      <div class="bg-slate-700 p-6 sm:p-10 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-semibold mb-6 text-blue-300">Enter Your Details</h2>
+
+        <form id="portfolioForm" class="space-y-6">
+          <div>
+            <label class="block text-left mb-2 font-medium">Your Name</label>
+            <input type="text" id="name" class="w-full p-3 rounded-lg bg-slate-600 text-white border border-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="John Doe" required />
+          </div>
+
+          <div>
+            <label class="block text-left mb-2 font-medium">About You</label>
+            <textarea id="about" class="w-full p-3 rounded-lg bg-slate-600 text-white border border-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="I'm a passionate web developer with 5 years of experience..." rows="4" required></textarea>
+          </div>
+
+          <div>
+            <label class="block text-left mb-2 font-medium">Your Projects (comma separated)</label>
+            <input type="text" id="projects" class="w-full p-3 rounded-lg bg-slate-600 text-white border border-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Portfolio Website, Weather App, Blog CMS" required />
+          </div>
+
+          <div>
+            <label class="block text-left mb-2 font-medium">Your Skills (comma separated)</label>
+            <input type="text" id="skills" class="w-full p-3 rounded-lg bg-slate-600 text-white border border-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="HTML, CSS, JavaScript, React" required />
+          </div>
+
+          <button type="submit" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-lg font-semibold text-lg">
+            Generate Portfolio
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('portfolioForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const about = document.getElementById('about').value;
+        const projects = document.getElementById('projects').value;
+        const skills = document.getElementById('skills').value;
+
+        const portfolioData = new URLSearchParams({
+          name,
+          about,
+          projects,
+          skills
+        });
+
+        window.location.href = `portfolio.html?${portfolioData.toString()}`;
+      });
+    </script>
+  </body>
+</html>
