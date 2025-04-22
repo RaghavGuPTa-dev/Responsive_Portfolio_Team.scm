@@ -12,13 +12,8 @@
       }
       .fade-in {
         opacity: 0;
-        transform: translateY(20px);
-        animation: fadeIn 1s ease forwards;
-      }
-      .fade-in-delayed {
-        opacity: 0;
-        transform: scale(0.95);
-        animation: scaleFadeIn 1s ease forwards;
+        transform: translateY(10px);
+        animation: fadeIn 1s ease-out forwards;
       }
       @keyframes fadeIn {
         to {
@@ -26,18 +21,11 @@
           transform: translateY(0);
         }
       }
-      @keyframes scaleFadeIn {
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
     </style>
   </head>
   <body class="bg-gradient-to-b from-slate-900 to-slate-800 text-white min-h-screen">
-
     <!-- Header / Navbar -->
-    <header class="bg-black bg-opacity-70 text-white p-4 flex justify-between items-center px-8 sticky top-0 z-50 fade-in">
+    <header class="bg-black bg-opacity-70 text-white p-4 flex justify-between items-center px-8 sticky top-0 z-50">
       <div class="text-xl font-bold">Welcome to Your Portfolio</div>
       <nav class="space-x-6">
         <a href="#about" class="hover:text-blue-400 transition">About</a>
@@ -48,14 +36,27 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="text-center py-20 px-4 fade-in">
-      <h1 class="text-4xl sm:text-5xl font-bold mb-4">
-        Hi, I'm <span class="text-blue-400">RAGHAV GUPTA</span>
-      </h1>
-      <p class="text-lg text-gray-300 mb-6">Welcome to my portfolio</p>
-      <button class="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-4 rounded-lg font-semibold">Contact Me</button>
-      <div class="mt-10 flex justify-center">
-        <img src="https://nextgeninvent.com/wp-content/uploads/2023/04/AI-model-development.jpg" alt="Portfolio Visual" class="w-48 h-48 object-contain rounded-full border-4 border-blue-500 shadow-lg" />
+    <section class="py-20 px-4 fade-in">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+        <!-- Left Content -->
+        <div class="text-center md:text-left space-y-6">
+          <h1 class="text-4xl sm:text-5xl font-bold">
+            Hi, I'm <span class="text-blue-400" id="displayName">RAGHAV GUPTA</span>
+          </h1>
+          <p class="text-lg text-gray-300">
+            Welcome to my portfolio
+          </p>
+          <button class="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-6 rounded-lg font-semibold">
+            Contact Me
+          </button>
+        </div>
+
+        <!-- Right Image -->
+        <div class="flex justify-center">
+          <img src="https://nextgeninvent.com/wp-content/uploads/2023/04/AI-model-development.jpg"
+            alt="Portfolio Visual"
+            class="w-52 h-52 object-cover rounded-full border-4 border-blue-500 shadow-lg" />
+        </div>
       </div>
     </section>
 
@@ -63,31 +64,55 @@
     <section id="about" class="text-center px-4 mb-20 fade-in">
       <h2 class="text-3xl font-bold mb-4">About <span class="text-blue-400">Me</span></h2>
       <div class="bg-slate-700 p-6 rounded-xl inline-block max-w-xl">
-        <p>This me ..............................</p>
+        <p id="aboutText">This is me ..............................</p>
       </div>
     </section>
 
     <!-- Projects -->
     <section id="projects" class="px-4 pb-20 fade-in">
       <h2 class="text-3xl font-bold text-center mb-10">My <span class="text-blue-400">Projects</span></h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <div class="bg-slate-700 p-4 rounded-xl fade-in-delayed">
-          <h3 class="text-white font-semibold mb-2">Project 1</h3>
-          <p class="text-gray-300 text-sm mb-2">A sophisticated project utilizing modern technologies to deliver exceptional user experiences.</p>
-          <a href="#" class="text-blue-400 hover:underline">View Project →</a>
-        </div>
-        <div class="bg-slate-700 p-4 rounded-xl fade-in-delayed">
-          <h3 class="text-white font-semibold mb-2">Project 2</h3>
-          <p class="text-gray-300 text-sm mb-2">A sophisticated project utilizing modern technologies to deliver exceptional user experiences.</p>
-          <a href="#" class="text-blue-400 hover:underline">View Project →</a>
-        </div>
-        <div class="bg-slate-700 p-4 rounded-xl fade-in-delayed">
-          <h3 class="text-white font-semibold mb-2">Project 3</h3>
-          <p class="text-gray-300 text-sm mb-2">A sophisticated project utilizing modern technologies to deliver exceptional user experiences.</p>
-          <a href="#" class="text-blue-400 hover:underline">View Project →</a>
-        </div>
+      <div id="projectCards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <!-- Project cards will be inserted here -->
       </div>
     </section>
 
+    <!-- Skills -->
+    <section id="skills" class="text-center px-4 pb-20 fade-in">
+      <h2 class="text-3xl font-bold mb-6">My <span class="text-blue-400">Skills</span></h2>
+      <div id="skillsList" class="flex flex-wrap gap-4 justify-center"></div>
+    </section>
+
+    <script>
+      // Extract URL parameters
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('name') || 'RAGHAV GUPTA';
+      const about = params.get('about') || 'This is a default about me section.';
+      const projects = (params.get('projects') || '').split(',').map(p => p.trim()).filter(Boolean);
+      const skills = (params.get('skills') || '').split(',').map(s => s.trim()).filter(Boolean);
+
+      // Inject data
+      document.getElementById('displayName').textContent = name;
+      document.getElementById('aboutText').textContent = about;
+
+      const projectCardsContainer = document.getElementById('projectCards');
+      projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-700 p-4 rounded-xl';
+        card.innerHTML = `
+          <h3 class="text-white font-semibold mb-2">${project}</h3>
+          <p class="text-gray-300 text-sm mb-2">A sophisticated project utilizing modern technologies to deliver exceptional user experiences.</p>
+          <a href="#" class="text-blue-400 hover:underline">View Project →</a>
+        `;
+        projectCardsContainer.appendChild(card);
+      });
+
+      const skillsList = document.getElementById('skillsList');
+      skills.forEach(skill => {
+        const badge = document.createElement('span');
+        badge.className = 'bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium';
+        badge.textContent = skill;
+        skillsList.appendChild(badge);
+      });
+    </script>
   </body>
 </html>
