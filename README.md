@@ -20,3 +20,8 @@ Hello everyone , welcome to reponsive portfolio website. Thanks for using our re
 
 Thanks You and Enjoy.
 
+Team :- 
+1.) Raghav Gupta (project leader)
+2.) Sarthak Muradia
+3.) Harshit Sadiyal
+
